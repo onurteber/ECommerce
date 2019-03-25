@@ -1,0 +1,131 @@
+﻿@using ECommerce.Web.Models
+@model ProductModel
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page info -->
+@*<div class="page-top-info">
+        <div class="container" >
+            <h2>@Model.Name</h2>
+            <div class="site-pagination">
+                <a href="/Home/Index">Anasayfa</a> >
+                <span>
+                    @Model.Name
+                </span>
+            </div>
+        </div>
+    </div>*@
+<!-- Page info end -->
+<!-- product section -->
+<section class="product-section">
+    <div class="container">
+        @*<div class="back-link">
+                <a href="./category.html"> &lt;&lt; Back to Category</a>
+            </div>*@
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product-pic-zoom">
+                    @foreach (var item in Model.Photos)
+                    {
+                        <img class="product-big-img" src="@item" alt="@Model.Name">
+                    }
+                </div>
+                @*<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
+                        <div class="product-thumbs-track">
+                            <div class="pt active" data-imgbigurl="img/single-product/1.jpg"><img src="img/single-product/thumb-1.jpg" alt=""></div>
+                        </div>
+                    </div>*@
+            </div>
+            <div class="col-lg-6 product-details">
+                <h2 class="p-title">@Model.Name</h2>
+                <h3>
+                    @if (DateTime.Now < Model.SpecialPriceFinishDate && DateTime.Now > Model.SpecialPriceStartDate && Model.SpecialPrice.HasValue)
+                    {
+                        @(Model.SpecialPrice.Value.ToString("n")) <text>₺</text>
+                    }
+                    else
+                    {
+                        @(Model.Price.ToString("n")) <text>₺</text>
+                    }
+                </h3>
+                @if (Model.Stock > 0)
+                {
+                    <h4 class="p-stock"> <span>Stokta Var</span></h4>
+                }
+                else
+                {
+                    <h4 class="p-stock"> <span>Stokta Yok</span></h4>
+                }
+                <div class="p-rating">
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o fa-fade"></i>
+                </div>
+                <div class="p-review">
+                    <a href="">3 reviews</a>|<a href="">Add your review</a>
+                </div>
+                <a href="#" class="site-btn">SHOP NOW</a>
+                <div id="accordion" class="accordion-area">
+                    <div class="panel">
+                        <div class="panel-header" id="headingOne">
+                            <button class="panel-link " data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">Açıklama</button>
+                        </div>
+                        <div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="panel-body">
+                                @Html.Raw(Model.Full)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header" id="headingTwo">
+                            <button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">care details </button>
+                        </div>
+                        <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="panel-body">
+                                <img src="./img/cards.png" alt="">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header" id="headingThree">
+                            <button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">shipping & Returns</button>
+                        </div>
+                        <div id="collapse3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="panel-body">
+                                <h4>7 Days Returns</h4>
+                                <p>Cash on Delivery Available<br>Home Delivery <span>@Model.ShipmentDay</span></p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header" id="headingFour">
+                            <button class="panel-link" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">Yorumlar </button>
+                        </div>
+                        <div id="collapse4" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                            <div class="panel-body">
+                                <img src="./img/cards.png" alt="">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-sharing">
+                        <a href=""><i class="fa fa-google-plus"></i></a>
+                        <a href=""><i class="fa fa-pinterest"></i></a>
+                        <a href=""><i class="fa fa-facebook"></i></a>
+                        <a href=""><i class="fa fa-twitter"></i></a>
+                        <a href=""><i class="fa fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- product section end -->
+@*@{Html.RenderPartial("ReleatedProducts", Model.RelatedProducts);}*@

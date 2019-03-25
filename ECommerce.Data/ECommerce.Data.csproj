@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AD4D4DF8-76E3-4A29-AE6E-01710F206889}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ECommerce.Data</RootNamespace>
+    <AssemblyName>ECommerce.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Address.cs" />
+    <Compile Include="Basket.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="Category_Product_Mapping.cs" />
+    <Compile Include="Mapping\AddressMap.cs" />
+    <Compile Include="Mapping\BasketMap.cs" />
+    <Compile Include="Mapping\CategoryMap.cs" />
+    <Compile Include="Mapping\Category_Product_MappingMap.cs" />
+    <Compile Include="Mapping\OrderMap.cs" />
+    <Compile Include="Mapping\OrderProductMap.cs" />
+    <Compile Include="Mapping\PhotoFolderMap.cs" />
+    <Compile Include="Mapping\PhotoMap.cs" />
+    <Compile Include="Mapping\ProductMap.cs" />
+    <Compile Include="Mapping\ProductPhotoMap.cs" />
+    <Compile Include="Mapping\ShippingTimeMap.cs" />
+    <Compile Include="Mapping\UserMap.cs" />
+    <Compile Include="AppDBContext.cs" />
+    <Compile Include="Migrations\201902261922565_Initial.cs" />
+    <Compile Include="Migrations\201902261922565_Initial.Designer.cs">
+      <DependentUpon>201902261922565_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902261934553_Telefon_Sutunu_Kullaniciya_Eklendi.cs" />
+    <Compile Include="Migrations\201902261934553_Telefon_Sutunu_Kullaniciya_Eklendi.Designer.cs">
+      <DependentUpon>201902261934553_Telefon_Sutunu_Kullaniciya_Eklendi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902271743420_Role_Added_To_User.cs" />
+    <Compile Include="Migrations\201902271743420_Role_Added_To_User.Designer.cs">
+      <DependentUpon>201902271743420_Role_Added_To_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902272111422_Update.cs" />
+    <Compile Include="Migrations\201902272111422_Update.Designer.cs">
+      <DependentUpon>201902272111422_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903011030460_Deneme_added.cs" />
+    <Compile Include="Migrations\201903011030460_Deneme_added.Designer.cs">
+      <DependentUpon>201903011030460_Deneme_added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903021617583_Deneme_Removed.cs" />
+    <Compile Include="Migrations\201903021617583_Deneme_Removed.Designer.cs">
+      <DependentUpon>201903021617583_Deneme_Removed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903041130213_abc_added.cs" />
+    <Compile Include="Migrations\201903041130213_abc_added.Designer.cs">
+      <DependentUpon>201903041130213_abc_added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903041131425_abc_deleted.cs" />
+    <Compile Include="Migrations\201903041131425_abc_deleted.Designer.cs">
+      <DependentUpon>201903041131425_abc_deleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903041816083_Setting_Table_Creation.cs" />
+    <Compile Include="Migrations\201903041816083_Setting_Table_Creation.Designer.cs">
+      <DependentUpon>201903041816083_Setting_Table_Creation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903082032234_ShowOnHomePage_Added_To_Product_Table.cs" />
+    <Compile Include="Migrations\201903082032234_ShowOnHomePage_Added_To_Product_Table.Designer.cs">
+      <DependentUpon>201903082032234_ShowOnHomePage_Added_To_Product_Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903131831325_Slideshow_table_product_and_categories_short.cs" />
+    <Compile Include="Migrations\201903131831325_Slideshow_table_product_and_categories_short.Designer.cs">
+      <DependentUpon>201903131831325_Slideshow_table_product_and_categories_short.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903221507590_Basket_add_Id.cs" />
+    <Compile Include="Migrations\201903221507590_Basket_add_Id.Designer.cs">
+      <DependentUpon>201903221507590_Basket_add_Id.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903221509539_Delete_basket_id.cs" />
+    <Compile Include="Migrations\201903221509539_Delete_basket_id.Designer.cs">
+      <DependentUpon>201903221509539_Delete_basket_id.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903241500254_Product_AddColumn_Viewed.cs" />
+    <Compile Include="Migrations\201903241500254_Product_AddColumn_Viewed.Designer.cs">
+      <DependentUpon>201903241500254_Product_AddColumn_Viewed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderProduct.cs" />
+    <Compile Include="Photo.cs" />
+    <Compile Include="PhotoFolder.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="ProductPhoto.cs" />
+    <Compile Include="RegisterResult.cs" />
+    <Compile Include="Setting.cs" />
+    <Compile Include="ShippingTime.cs" />
+    <Compile Include="SlideShow.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902261922565_Initial.resx">
+      <DependentUpon>201902261922565_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902261934553_Telefon_Sutunu_Kullaniciya_Eklendi.resx">
+      <DependentUpon>201902261934553_Telefon_Sutunu_Kullaniciya_Eklendi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902271743420_Role_Added_To_User.resx">
+      <DependentUpon>201902271743420_Role_Added_To_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902272111422_Update.resx">
+      <DependentUpon>201902272111422_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903011030460_Deneme_added.resx">
+      <DependentUpon>201903011030460_Deneme_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903021617583_Deneme_Removed.resx">
+      <DependentUpon>201903021617583_Deneme_Removed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903041130213_abc_added.resx">
+      <DependentUpon>201903041130213_abc_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903041131425_abc_deleted.resx">
+      <DependentUpon>201903041131425_abc_deleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903041816083_Setting_Table_Creation.resx">
+      <DependentUpon>201903041816083_Setting_Table_Creation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903082032234_ShowOnHomePage_Added_To_Product_Table.resx">
+      <DependentUpon>201903082032234_ShowOnHomePage_Added_To_Product_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903131831325_Slideshow_table_product_and_categories_short.resx">
+      <DependentUpon>201903131831325_Slideshow_table_product_and_categories_short.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903221507590_Basket_add_Id.resx">
+      <DependentUpon>201903221507590_Basket_add_Id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903221509539_Delete_basket_id.resx">
+      <DependentUpon>201903221509539_Delete_basket_id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903241500254_Product_AddColumn_Viewed.resx">
+      <DependentUpon>201903241500254_Product_AddColumn_Viewed.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

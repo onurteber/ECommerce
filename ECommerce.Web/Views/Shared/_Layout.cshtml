@@ -1,0 +1,213 @@
+﻿<html >
+<head>
+    <title>@ViewBag.title</title>
+    <meta charset="UTF-8">
+    <meta name="description" content=" Divisima | eCommerce Template">
+    <meta name="keywords" content="divisima, eCommerce, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="shortcut icon" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+
+
+    <!-- Stylesheets -->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/flaticon.css" rel="stylesheet" />
+    <link href="~/Content/css/slicknav.min.css" rel="stylesheet" />
+    <link href="~/Content/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Content/css/animate.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+
+
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+
+
+
+
+    @{ Html.RenderAction("Header", "Common");}
+    <div style="width:80%;margin:auto;">
+        @RenderBody()
+    </div>
+
+    @{ Html.RenderAction("Footer", "Common");}
+
+
+    @{Html.RenderAction("ModalsPartials", "Common");}
+
+    @*User Login Modal*@
+
+    <section>
+        <div class="modal fade" id="addBasket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color:#f9f9f9">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Şifremi Unuttum</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div style="color:red; margin-top:16px; font-size:17px" class="form-group text-center">Ürün Sepete Atıldı.</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn site-btn" style="background-color:#f27a1a;width:100%" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        $('.btnaddtobasket').click(function () {
+            debugger;
+            var id = $(this).attr("data-id");
+            $.ajax({
+                url: '/ShoppingCart/AddToBasket',
+                type: 'get',
+                data: { productId: id },
+                success: function (result) {
+                    $("#addBasket").modal();
+                }
+            });
+        });
+    </script>
+
+
+
+    <!-- Footer section end -->
+    <!--====== Javascripts & Jquery ======-->
+    <script src="~/Content/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery.slicknav.min.js"></script>
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/js/jquery.zoom.min.js"></script>
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script src="~/Content/js/main.js"></script>
+
+
+    @* Reset Password *@
+
+
+
+    @if (TempData["resetPassword"] != null)
+    {
+        if (TempData["resetPassword"].ToString() == "true")
+        {
+            <script>
+                $('#modalResetPassword').modal()
+                $('#errormsgreset').append("Yeni Şifreniz e-posta adresinize gönderildi.")
+                setTimeout(function () {
+                    $('#errormsgreset').html('')
+                    $("#modalResetPassword").modal("hide");
+                }, 5000);
+                TempData["resetPassword"] = null;
+            </script>
+        }
+        else
+        {
+            <script>
+                $('#modalResetPassword').modal()
+                $('#errormsgreset').append("Mail Adresi Bulunamadı.")
+                TempData["resetPassword"] = null;
+            </script>
+        }
+    }
+
+
+    @*Login*@
+
+    @if (TempData["isLogin"] != null)
+    {
+        if (TempData["isLogin"].ToString() == "false")
+        {
+            <script>
+                $('#modalLogin').modal()
+                $('#errormsg').append("Email Veya Şifre Hatalı")
+                TempData["isLogin"] == null;
+            </script>
+        }
+        else
+        {
+            <script>
+                $('#errormsg').html('')
+            </script>
+        }
+    }
+
+    @*Register*@
+
+    @if (TempData["successRegister"] != null)
+    {
+        if (TempData["successRegister"].ToString() == "true")
+        {
+            <script>
+                $('#registerResponse').modal()
+                $('#registerResponseMsg').append("Lütfen e-posta adresinizi onaylayın.")
+                setTimeout(function () {
+                    $('#registerResponseMsg').html('')
+                    $("#registerResponse").modal("hide");
+                }, 5000);
+                TempData["resetPassword"] = null;
+            </script>
+        }
+    }
+
+    @if (TempData["error"] != null)
+    {
+        if (TempData["error"].ToString() == "email")
+        {
+            <script>
+                $('#modalRegister').modal()
+                $('#errormsgregister').append("Bu email adresine kayıtlı bir hesap bulunmaktadır.");
+                setTimeout(function () {
+                    $('#errormsgregister').html('')
+                }, 10000);
+            </script>
+        }
+        else if (TempData["error"].ToString() == "sifre")
+        {
+            <script>
+                $('#modalRegister').modal()
+                $('#errormsgregister').append("Şifreler Uyuşmuyor!");
+                setTimeout(function () {
+                    $('#errormsgregister').html('')
+                }, 10000);
+            </script>
+        }
+        else if (TempData["error"].ToString() == "system")
+        {
+            <script>
+                $('#modalRegister').modal()
+                $('#errormsgregister').append("Bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
+                setTimeout(function () {
+                    $('#errormsgregister').html('')
+                }, 20000);
+            </script>
+        }
+        else
+        {
+            <script>
+                $('#errormsgregister').html('')
+            </script>
+        }
+    }
+
+    @RenderSection("scripts", false)
+</body>
+</html>

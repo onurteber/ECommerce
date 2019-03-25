@@ -1,0 +1,313 @@
+﻿@model UserViewModel
+@using ECommerce.Web.Models
+
+<section>
+    <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:#f9f9f9">
+                <div class="modal-header">
+                    <h5 class="modal-title">Giriş Yap</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("Login", "User", FormMethod.Post, htmlAttributes: new { @id = "form2" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div id="errormsg" style="color:red;margin-top:4%;font-size:17px" class="form-group text-center"></div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            E-posta Adresi
+                            <input type="email" id="loginEmail" name="Email" class="form-control" title="Eposta" required>
+                        </div>
+                        <div class="form-group">
+                            Şifre
+                            <input type="password" id="loginPassword" name="Password" class="form-control" title="Şifre" required>
+                        </div>
+
+                        <div style="text-align:right;font-size:10px;">
+                            <a href="#modalResetPassword" onclick="$(modalLogin).modal('hide')" id="resetpass" data-toggle="modal">Şifremi Unuttum</a>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Beni Hatırla <input type="checkbox" name="RememberMe" id="RememberMe" checked value="true" />
+                            </label>
+                        </div>
+                       
+                    </div>
+                    <script>
+                         @(TempData["ViewNameLogin"] = HttpContext.Current.Request.RawUrl)
+                    </script>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn site-btn" style="background-color:#f27a1a;width:100%">Giriş Yap</button>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $("#modalLogin").on("hidden.bs.modal", function () {
+        $("#form2 input[type='text'],input[type='password']").val('');
+        $("#form2 input[type='text'],input[type='password']").each(function () {
+            $(this).removeClass('form-control');
+            $(this).addClass("form-control");
+        });
+    });
+</script>
+
+
+@* Login Modal Validation *@
+<script>
+    @* Email Validation *@
+    $('#form2 input[type=email]').on('change invalid', function () {
+        var textfield = $(this).get(0);
+
+        // 'setCustomValidity not only sets the message, but also marks
+        // the field as invalid. In order to see whether the field really is
+        // invalid, we have to remove the message first
+        textfield.setCustomValidity('');
+
+        if (!textfield.validity.valid) {
+            textfield.setCustomValidity('Lütfen Eposta Alanını Doldurunuz');
+        }
+    });
+    @* Password Validation *@
+    $('#form2 input[type=password]').on('change invalid', function () {
+        var textfield = $(this).get(0);
+
+        // 'setCustomValidity not only sets the message, but also marks
+        // the field as invalid. In order to see whether the field really is
+        // invalid, we have to remove the message first
+        textfield.setCustomValidity('');
+
+        if (!textfield.validity.valid) {
+            textfield.setCustomValidity('Lütfen Şifre Alanını Doldurunuz');
+        }
+    });
+</script>
+
+
+
+@* Reset Password Response *@
+
+<section>
+    <div class="modal fade" id="registerResponse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:#f9f9f9">
+                <div class="modal-header">
+                    <h5 class="modal-title">Şifremi Unuttum</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div id="registerResponseMsg" style="color:red; margin-top:16px; font-size:17px" class="form-group text-center"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn site-btn" style="background-color:#f27a1a;width:100%" data-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*User Register Modal*@
+
+<section class="text-center" style="width:25%;margin:auto">
+    <div class="modal fade text-center" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:#f9f9f9">
+                <div class="modal-header">
+                    <h5 class="modal-title">Üye Ol</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("Register", "User", FormMethod.Post, htmlAttributes: new { @id = "registerModalValidate" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div id="errormsgregister" style="color:red;margin-top:16px;font-size:17px" class="form-group text-center"></div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="email" name="Email" class="form-control" placeholder="Email Adresi" title="Eposta" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Name" class="form-control" placeholder="Ad" title="Ad" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="LastName" class="form-control" placeholder="Soyad" title="Soyad" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Phone" class="form-control" placeholder="Telefon Numarası" title="Telefon Numarası" required>
+                        </div>
+                        <div class="form-group">
+                            <input id="pass1" type="password" name="Password" class="form-control" placeholder="Şifre" title="Şifre" required>
+                        </div>
+                        <div class="form-group">
+                            <input id="pass2" type="password" name="PasswordAgain" class="form-control" placeholder="Şifre Tekrarı" title="Şifre Tekrarı" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin:auto">
+                        <button type="submit" class="btn site-btn" style="background-color:#f27a1a;width:100%">Üye Ol</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+@* Register Modal Validation *@
+<script>
+    @* Email Validation *@
+    $('#registerModalValidate input[type=email]').on('change invalid', function () {
+        var textfield = $(this).get(0);
+
+        // 'setCustomValidity not only sets the message, but also marks
+        // the field as invalid. In order to see whether the field really is
+        // invalid, we have to remove the message first
+        textfield.setCustomValidity('');
+
+        if (!textfield.validity.valid) {
+            textfield.setCustomValidity('Lütfen Eposta Alanını Doldurun!');
+        }
+    });
+    @* Password Validation *@
+    $('#registerModalValidate input[type=password]').on('change invalid', function () {
+        var textfield = $(this).get(0);
+
+        // 'setCustomValidity not only sets the message, but also marks
+        // the field as invalid. In order to see whether the field really is
+        // invalid, we have to remove the message first
+        textfield.setCustomValidity('');
+
+        if (!textfield.validity.valid) {
+            textfield.setCustomValidity('Lütfen Şifre Alanını Doldurun!');
+        }
+    });
+    @* Text Validation *@
+    $('#registerModalValidate input[type=text]').on('change invalid', function () {
+        var textfield = $(this).get(0);
+
+        // 'setCustomValidity not only sets the message, but also marks
+        // the field as invalid. In order to see whether the field really is
+        // invalid, we have to remove the message first
+        textfield.setCustomValidity('');
+
+        if (!textfield.validity.valid) {
+            textfield.setCustomValidity('Lütfen Bu Alanı Boş Bırakmayın!');
+        }
+    });
+</script>
+
+
+
+
+@* Reset Password *@
+
+<section>
+    <div class="modal fade" id="modalResetPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:#f9f9f9">
+                <div class="modal-header">
+                    <h5 class="modal-title">Şifremi Unuttum</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("ResetPassword", "User", FormMethod.Post, htmlAttributes: new { @id = "resetPasswordModelValidation" }))
+                {
+                    <div id="errormsgreset" style="color:red;margin-top:4%;font-size:17px" class="form-group text-center"></div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            E-posta Adresi
+                            <input type="email" name="Email" class="form-control" title="Eposta" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" style="background-color:#f27a1a;width:100%" class="btn site-btn">Yeni Şifre Gönder</button>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@* Reset Password Modal Validation *@
+<script>
+    @* Email Validation *@
+    $('#resetPasswordModelValidation input[type=email]').on('change invalid', function () {
+        var textfield = $(this).get(0);
+
+        // 'setCustomValidity not only sets the message, but also marks
+        // the field as invalid. In order to see whether the field really is
+        // invalid, we have to remove the message first
+        textfield.setCustomValidity('');
+
+        if (!textfield.validity.valid) {
+            textfield.setCustomValidity('Lütfen Eposta Alanını Doldurun!');
+        }
+    });
+</script>
+
+
+
+@*User Register Modal*@
+
+@*<section class="text-center" style="width:25%;margin:auto">
+    <div class="modal fade text-center" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:#f9f9f9">
+                <div class="modal-header">
+                    <h5 class="modal-title">Üye Ol</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("Register", "User", FormMethod.Post))
+                {
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(false, "", htmlAttributes: new { @class = "text-danger" })
+                    <div id="errormsgregister" style="color:red;margin-top:16px;font-size:17px" class="form-group text-center"></div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="email" name="Email" class="form-control" placeholder="Email Adresi">
+                            @Html.ValidationMessageFor(m => m.userRegister.Email)
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Name" class="form-control" placeholder="Ad">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="LastName" class="form-control" placeholder="Soyadı">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Phone" class="form-control" placeholder="Telefon Numarası">
+                        </div>
+                        <div class="form-group">
+                            <input id="pass1" type="password" name="Password" class="form-control" placeholder="Şifre">
+                        </div>
+                        <div class="form-group">
+                            <input id="pass2" type="password" name="PasswordAgain" class="form-control" placeholder="Şifre Tekrarı">
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin:auto">
+                        <button type="submit" class="btn site-btn" style="background-color:#f27a1a;width:100%">Üye Ol</button>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</section>*@
+
+

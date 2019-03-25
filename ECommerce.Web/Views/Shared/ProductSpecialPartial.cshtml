@@ -1,0 +1,53 @@
+﻿@model ProductModel
+@using ECommerce.Web.Models
+
+@if (Model.SpecialPrice.HasValue && (Model.SpecialPriceStartDate < DateTime.Now && Model.SpecialPriceFinishDate > DateTime.Now))
+{
+    var t = Model.SpecialPriceFinishDate - DateTime.Now;
+    <div style="text-align:right;color:red">
+        Son
+        <span class="days">
+            @t.Value.Days
+        </span>
+        <span>
+            Gün
+        </span>
+        <span class="hours">
+            @t.Value.Hours
+        </span>
+        <span class="">
+            Saat
+        </span>
+        <span class="minutes">
+            @t.Value.Minutes
+        </span>
+        <span class="">
+            Dak.
+        </span>
+        <span class="seconds">
+            @t.Value.Seconds
+        </span>
+        <span class="">
+            San.
+        </span>
+    </div>
+    <a href="~/@Model.Slug">
+        <div class="banner set-bg" data-setbg="/Content/img/bg-2.jpg">
+            <div class="tag-new">
+                New
+            </div>
+            <span style="color:white">İndirimli Ürün</span>
+            <span style="color:white;font-size:20px;">
+                @(Model.SpecialPrice.Value.ToString("n")) <text>₺</text>
+            </span>
+
+            <span style="color:red;font-size:15px;">
+                <del> @(Model.Price.ToString("n")) </del> <text>₺</text>
+            </span>
+
+
+            <h2 style="color:white">@Model.Name</h2>
+            <a href="#" class="site-btn">SHOP NOW</a>
+        </div>
+    </a>
+}

@@ -1,0 +1,38 @@
+﻿@model ProductModel
+@using ECommerce.Web.Models
+
+@if (!Model.SpecialPrice.HasValue && !(Model.SpecialPriceStartDate < DateTime.Now && Model.SpecialPriceFinishDate > DateTime.Now))
+{
+    var t = Model.SpecialPriceFinishDate - DateTime.Now;
+    <div class="product-item">
+        <div class="pi-pic">
+            @if (Model.Photos.Count > 0)
+            {
+                <a href="~/Products/Details/@Model.Slug"><img src="@Model.Photos.FirstOrDefault()" alt="@Model.Name"></a>
+            }
+            <div class="pi-links">
+                <a href="" class="add-card btnaddtobasket" data-id="@Model.Id"><i class="flaticon-bag"></i><span>Sepete Ekle</span></a>
+            </div>
+        </div>
+        <div class="pi-text">
+            <h6>
+                @if (DateTime.Now < Model.SpecialPriceFinishDate && DateTime.Now > Model.SpecialPriceStartDate && Model.SpecialPrice.HasValue)
+                {
+                    @(Model.SpecialPrice.Value.ToString("n")) <text>₺</text>
+                }
+                else
+                {
+                    @(Model.Price.ToString("n")) <text>₺</text>
+                }
+            </h6>
+            <a href="~/Products/@Model.Slug" style="color:#111111">@Model.Name</a>
+        </div>
+    </div>
+    @section scripts{
+        <script>
+            var deadline = new Date(Date.parse(new Date()) + @t.Value.Days * 24 * 60 * 60 * 1000 + @t.Value.Hours * 60 * 60 * 1000 + @t.Value.Minutes * 60 * 1000 + @t.Value.Seconds * 1000);
+            initializeClock('clockdiv', deadline);
+        </script>
+
+    }
+}

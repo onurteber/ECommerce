@@ -1,0 +1,171 @@
+﻿@model ECommerce.Web.Models.HeaderModel
+@{
+    Layout = null;
+}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+<div style="background-color:black;color:red;text-align:center;font-size:250%"><span id="yanip-sonen">BLACK FRIDAY İNDİRİMİNİ KAÇIRMA</span></div>
+<script>
+    $(document).ready(function () {
+        setInterval(function () {
+            if ($("#yanip-sonen").css("visibility") == "visible") {
+                $("#yanip-sonen").css("visibility", "hidden");
+                //veya $("#yanip-sonen").attr("style","visibility:hidden");
+            }
+            else {
+                $("#yanip-sonen").css("visibility", "visible");
+                //veya $("#yanip-sonen").attr("style","visibility:visible");
+            }
+        }, 700); //700 milisaniyede bir yanıp sönecek
+    });
+</script>
+<header class="header-section" style="text-align:center;">
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 text-center" style="margin-top:-0.5%;">
+                    <!-- logo -->
+                    <a href="~/Home/Index" class="site-logo">
+                        <img src="@Model.Logo" @(Model.LogoWidth > 0 ? "width=" + Model.LogoWidth + " " : "") @(Model.LogoHeight > 0 ? "height=" + Model.LogoHeight + " " : "")>
+                    </a>
+                </div>
+                <div class="col-xl-6 col-lg-5">
+                    <form class="header-search-form">
+                        <input type="text" placeholder="Ara ....">
+                        <button><i class="flaticon-search"></i></button>
+                    </form>
+                </div>
+                @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="user-panel" style="margin-top:1.3%;">
+                            <div class="up-item">
+                                <div class="dropdown">
+                                    <i class="flaticon-profile"></i><span>Hesabım</span>
+                                    <div class="dropdown-content">
+                                        <p><a href="/ShoppingCart/Index">Siparişlerim</a></p>
+                                        <p><a href="#">Favorilerim</a></p>
+                                        <p><a href="#">Mesajlarım</a></p>
+                                        <p><a href="#">Bana Özel Ürünler</a></p>
+                                        <script>
+                                                 @(TempData["ViewNameLogOut"] = HttpContext.Current.Request.RawUrl)
+                                        </script>
+                                        <p><a href="~/User/LogOut">Çıkış Yap</a></p>
+                                    </div>
+                                </div>
+                                <style>
+                                    .dropdown {
+                                        position: relative;
+                                        z-index: 2;
+                                        display: inline-block;
+                                    }
+
+                                    .dropdown-content {
+                                        display: none;
+                                        position: absolute;
+                                        background-color: white;
+                                        min-width: 160px;
+                                        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                                        padding: 12px 16px;
+                                        z-index: 1;
+                                    }
+
+                                    .dropdown:hover .dropdown-content {
+                                        display: block;
+                                    }
+                                </style>
+                            </div>
+                            <div class="up-item">
+                                <div class="shopping-card">
+                                    <i class="flaticon-bag"></i>
+                                    <span>
+                                        @Model.BaketsCount
+                                    </span>
+                                </div>
+                                <a href="/ShoppingCart/Index">Sepetim</a>
+                            </div>
+                            <div class="up-item">
+                                <div class="shopping-card">
+
+                                    @if (Model.CouponEndDate >= DateTime.Now)
+                                    {
+                                        <i class="flaticon-timer"></i>
+                                        <span>@Model.CouponEndDate</span>
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                </div>
+                                <a href="@(Model.CouponLink ?? "#")">@(Model.CouponText ?? "")</a>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="user-panel" style="margin-top:2%">
+                            <div class="up-item">
+                                <i class="flaticon-profile"></i>
+                                <a href="#modalLogin" data-toggle="modal">Giriş Yap</a> || <a href="#modalRegister" data-toggle="modal">Kayıt Ol</a>
+                            </div>
+                            <div class="up-item">
+                                <div class="shopping-card">
+                                    <i class="flaticon-bag"></i>
+
+                                    @if (HttpContext.Current.User.Identity.Name != null)
+                                    {
+                                        <span>
+                                            @Model.BaketsCount
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            0
+                                        </span>
+                                    }
+
+                                </div>
+                                <a href="/ShoppingCart/Index">Sepetim</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <nav class="main-navbar">
+        <div class="container">
+            <!-- menu -->
+            <div>
+                <ul class="main-menu">
+                    <li></li>
+                    <li></li>
+                    <li><a href="/Home/Index" style="color:black">Anasayfa</a></li>
+                    <li><a href="/Category/Details/woman" style="color:black">Kadın</a></li>
+                    <li><a href="/Category/Details/man" style="color:black">Erkek</a></li>
+                    <li>
+                        <a href="#" style="color:black">
+                            Takılar
+                            <span class="new">New</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Category/Details/young" style="color:black">Genç</a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Spor Ayakkabıçar</a></li>
+                            <li><a href="#">Sandaletler</a></li>
+                            <li><a href="#">Klasik Ayakkabılar</a></li>
+                            <li><a href="#">Botlar</a></li>
+                            <li><a href="#">Terlikler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/Category/Details/child" style="color:black">Çocuk</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
