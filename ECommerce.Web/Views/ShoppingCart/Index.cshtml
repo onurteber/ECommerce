@@ -7,14 +7,14 @@
 
 
 @*<div class="page-top-info">
-    <div class="container">
-        <h4></h4>
-        <div class="site-pagination">
-            <a href="">Home</a> /
-            <a href="">Your cart</a>
+        <div class="container">
+            <h4></h4>
+            <div class="site-pagination">
+                <a href="">Home</a> /
+                <a href="">Your cart</a>
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 
 <section class="cart-section spad">
@@ -36,7 +36,6 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-
                                     <tr>
                                         <td class="product-col">
                                             <a href="~/Product/Details/@item.Link"><img src="@item.PhotoLink" alt=""></a>
@@ -47,13 +46,18 @@
                                         <td class="quy-col">
                                             <div class="quantity">
                                                 <div class="pro-qty">
+
+                                                    <span class="dec qtybtn btndeleteFrombasket" data-id="@item.Id">-</span>
                                                     <input type="text" value="@item.Count">
+
+                                                    <span class="inc qtybtn btnaddTobasket" data-id="@item.Id">+</span>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="size-col"><h4>M</h4></td>
                                         <td class="total-col"><h4>@item.Price</h4></td>
                                     </tr>
+
                                 }
                             </tbody>
                         </table>

@@ -44,6 +44,7 @@ namespace ECommerce.Web.Controllers
             {
                 price = basket.Product.Price;
             }
+            model.Id = product.Id;
             model.Price = price;
             model.Link = product.Slug;
             model.ProductName = product.ProductName;
@@ -62,9 +63,9 @@ namespace ECommerce.Web.Controllers
         public void AddToBasket(int productId,int count=1)
         {
             int countProduct;
-            if (userEmail == "")
+            if (userEmail == "")// Todo () ip address
             {
-                string email= "guest";//Todo 
+                string email= "guest";
                 countProduct = _shoppingCartService.BasketByProductId(email, productId);
                 if (countProduct >= 1)
                 {
@@ -93,10 +94,9 @@ namespace ECommerce.Web.Controllers
             }
             
         }
-        public ActionResult DeleteFromBasket(int productId)
+        public void DeleteFromBasket(int productId)
         {
             _shoppingCartService.DeleteFromBasket(productId,userEmail);
-            return View("Index");
         }
     }
 }

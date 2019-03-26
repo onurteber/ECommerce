@@ -18,7 +18,7 @@ namespace ECommerce.Services.ShoppingCart
         }
         public void AddToBasket(int productId, int count, string email)
         {
-            if (email == "")
+            if (email == "")// Todo () ip address
             {
                 email = "guest";
             }
@@ -39,7 +39,7 @@ namespace ECommerce.Services.ShoppingCart
 
         public void DeleteFromBasket(int productId, string email)
         {
-            if (email == "")
+            if (email == "") // Todo () ip address
             {
                 email = "guest";
             }
@@ -47,14 +47,14 @@ namespace ECommerce.Services.ShoppingCart
             var product = appDbContext.Baskets.SingleOrDefault(p => p.ProductId == productId && p.UserId == userId);
             if (product != null)
             {
-                appDbContext.Baskets.Remove(product);
+                product.Count--;
                 appDbContext.SaveChanges();
             }
         }
         
         public IQueryable<Basket> GetBasket(string email)
         {
-            if(email =="")
+            if(email =="") // Todo () ip address
             {
                 email = "guest";
             }
@@ -65,7 +65,7 @@ namespace ECommerce.Services.ShoppingCart
         }
         public int GetBasketCount(string email)
         {
-            if (email == "")
+            if (email == "") // Todo () ip address
             {
                 email = "guest";
             }
@@ -84,7 +84,7 @@ namespace ECommerce.Services.ShoppingCart
 
         public int BasketByProductId(string email,int productId)
         {
-            if (email == "")
+            if (email == "") // Todo () ip address
             {
                 email = "guest";
             }
@@ -104,7 +104,7 @@ namespace ECommerce.Services.ShoppingCart
        
         public void UpdateBasket(IEnumerable<Basket> basket, string email)
         {
-            if (email == "")
+            if (email == "") // Todo () ip address
             {
                 email = "guest";
             }

@@ -56,6 +56,7 @@ namespace ECommerce.Web.Controllers
             model.Name = product.ProductName;
             model.Full = product.Description;
             model.Slug = product.Slug;
+            model.Id = product.Id;
             model.PastPrice = product.PastPrice;
             model.Price = product.Price;
             model.ShipmentDay = product.ShippingTime.ShippingTime1;
