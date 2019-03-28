@@ -27,6 +27,29 @@ namespace ECommerce.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
 
+        protected void Application_BeginRequest()
+        {
+            if (HttpContext.Current.User == null)
+            {
+                CreateGuestMember();
+            }
+            else
+            {
+                var ipAddress = HttpContext.Current.Request.UserHostAddress;
+                FormsAuthentication.SetAuthCookie(ipAddress, true);
+            }
+        }
+        private void CreateGuestMember()
+        {
+            var _customerService = _appContainer.Resolve<IUserService>();
+            var ipAddress = HttpContext.Current.Request.UserHostAddress;
+            if (!_customerService.EmailControl(ipAddress))
+            {
+                _customerService.CreateGuestMember(ipAddress);
+                FormsAuthentication.SetAuthCookie(ipAddress, true);
+            }
+        }
+
         private void AutofacRun()
         {
             var builder = new ContainerBuilder();
@@ -64,6 +87,11 @@ namespace ECommerce.Web
                     catch (Exception)
                     {
                     }
+                }
+                else
+                {
+                    var ipAddress = HttpContext.Current.Request.UserHostAddress;
+                    FormsAuthentication.SetAuthCookie(ipAddress, true);
                 }
             }
         }

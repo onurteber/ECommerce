@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ECommerce.Web.Controllers
 {
@@ -27,6 +28,7 @@ namespace ECommerce.Web.Controllers
         {
             var data = _shoppingCartService.GetBasket(userEmail).ToList().Select(p => PrepareShoppingCartModel(p));
             return View(data);
+
         }
 
         [NonAction]
@@ -60,43 +62,30 @@ namespace ECommerce.Web.Controllers
 
         }
 
-        public void AddToBasket(int productId,int count=1)
+
+
+        public void AddToBasket(int productId, int count = 1)
         {
             int countProduct;
-            if (userEmail == "")// Todo () ip address
+
+            countProduct = _shoppingCartService.BasketByProductId(userEmail, productId);
+            if (countProduct >= 1)
             {
-                string email= "guest";
-                countProduct = _shoppingCartService.BasketByProductId(email, productId);
-                if (countProduct >= 1)
-                {
-                    _shoppingCartService.DeleteFromBasket(productId, userEmail);
-                    countProduct++;
-                    _shoppingCartService.AddToBasket(productId, countProduct, userEmail);
-                }
-                else
-                {
-                    _shoppingCartService.AddToBasket(productId, count, userEmail);
-                }
+                _shoppingCartService.DeleteFromBasket(productId, userEmail);
+                countProduct++;
+                _shoppingCartService.AddToBasket(productId, countProduct, userEmail);
             }
             else
             {
-                countProduct = _shoppingCartService.BasketByProductId(userEmail, productId);
-                if (countProduct >= 1)
-                {
-                    _shoppingCartService.DeleteFromBasket(productId, userEmail);
-                    countProduct++;
-                    _shoppingCartService.AddToBasket(productId, countProduct, userEmail);
-                }
-                else
+                if (countProduct >= 0)
                 {
                     _shoppingCartService.AddToBasket(productId, count, userEmail);
                 }
             }
-            
         }
         public void DeleteFromBasket(int productId)
         {
-            _shoppingCartService.DeleteFromBasket(productId,userEmail);
+            _shoppingCartService.DecreaseFromBasket(productId, userEmail);
         }
     }
 }

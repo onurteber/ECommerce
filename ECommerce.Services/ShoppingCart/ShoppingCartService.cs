@@ -18,10 +18,6 @@ namespace ECommerce.Services.ShoppingCart
         }
         public void AddToBasket(int productId, int count, string email)
         {
-            if (email == "")// Todo () ip address
-            {
-                email = "guest";
-            }
             var userId = appDbContext.Users.SingleOrDefault(p => p.Email == email).Id;
             if (_productService.GetProductById(productId) != null)
             {
@@ -39,39 +35,41 @@ namespace ECommerce.Services.ShoppingCart
 
         public void DeleteFromBasket(int productId, string email)
         {
-            if (email == "") // Todo () ip address
+            var userId = appDbContext.Users.SingleOrDefault(p => p.Email == email).Id;
+            var product = appDbContext.Baskets.SingleOrDefault(p => p.ProductId == productId && p.UserId == userId);
+            if (product != null)
             {
-                email = "guest";
+                appDbContext.Baskets.Remove(product);
+                appDbContext.SaveChanges();
             }
+        }
+
+        public void DecreaseFromBasket(int productId, string email)
+        {
             var userId = appDbContext.Users.SingleOrDefault(p => p.Email == email).Id;
             var product = appDbContext.Baskets.SingleOrDefault(p => p.ProductId == productId && p.UserId == userId);
             if (product != null)
             {
                 product.Count--;
+                if (product.Count <= 0)
+                {
+                    appDbContext.Baskets.Remove(product);
+                }
                 appDbContext.SaveChanges();
             }
         }
-        
+
         public IQueryable<Basket> GetBasket(string email)
         {
-            if(email =="") // Todo () ip address
-            {
-                email = "guest";
-            }
-            
-                var userId = appDbContext.Users.SingleOrDefault(p => p.Email == email).Id;
-           
+            var userId = appDbContext.Users.SingleOrDefault(p => p.Email == email).Id;
+
             return appDbContext.Baskets.Where(p => p.UserId == userId);
         }
         public int GetBasketCount(string email)
         {
-            if (email == "") // Todo () ip address
-            {
-                email = "guest";
-            }
 
             var userId = appDbContext.Users.SingleOrDefault(p => p.Email == email).Id;
-            if(appDbContext.Baskets.FirstOrDefault(p => p.UserId == userId) != null)
+            if (appDbContext.Baskets.FirstOrDefault(p => p.UserId == userId) != null)
             {
                 var productCount = Convert.ToInt32(appDbContext.Baskets.Where(p => p.UserId == userId).Sum(p => p.Count));
                 if (productCount != null)
@@ -82,32 +80,24 @@ namespace ECommerce.Services.ShoppingCart
             return 0;
         }
 
-        public int BasketByProductId(string email,int productId)
+        public int BasketByProductId(string email, int productId)
         {
-            if (email == "") // Todo () ip address
-            {
-                email = "guest";
-            }
             var userId = appDbContext.Users.SingleOrDefault(p => p.Email == email).Id;
             int ali = appDbContext.Baskets.Where(p => p.UserId == userId && p.ProductId == productId).Count();
-            if(ali >= 1)
+            if (ali >= 1)
             {
                 int countProduct = appDbContext.Baskets.FirstOrDefault(p => p.UserId == userId && p.ProductId == productId).Count;
                 return countProduct;
             }
             else
             {
-                return -1;
+                return 0;
             }
         }
 
-       
+
         public void UpdateBasket(IEnumerable<Basket> basket, string email)
         {
-            if (email == "") // Todo () ip address
-            {
-                email = "guest";
-            }
             var userId = appDbContext.Users.SingleOrDefault(p => p.Email == email).Id;
             if (GetBasket(email).Count() > 0)
             {

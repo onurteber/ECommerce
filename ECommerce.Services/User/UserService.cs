@@ -17,6 +17,25 @@ namespace ECommerce.Services.User
             _emailSenderService = emailSenderService;
         }
 
+        public Data.User CreateGuestMember(string ipAddress)
+        {
+            var user = new Data.User();
+            user.Active = true;
+            user.LastLoginDate = DateTime.Now;
+            user.ApprovedEmail = true;
+            user.RegisterDate = DateTime.Now;
+            user.Guid = Guid.NewGuid();
+            user.Email = ipAddress;
+            user.LastLoginIp = ipAddress;
+            user.Name = "Guest";
+            user.LastName = "Guest";
+            user.Password = Guid.NewGuid().ToString();
+            user.Role = "Guest";
+            appDbContext.Users.Add(user);
+            appDbContext.SaveChanges();
+            return user;
+        }
+
         public void ActivateUserByGuid(string customerGuid)
         {
             var customer = appDbContext.Users.FirstOrDefault(m => m.Guid.ToString() == customerGuid);

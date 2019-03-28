@@ -113,7 +113,7 @@ namespace ECommerce.Web.Controllers
 
                 if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(user.Email, loginUserModel.RememberMe);
+                    FormsAuthentication.SetAuthCookie(user.Email, true);
 
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -146,6 +146,8 @@ namespace ECommerce.Web.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
+            var ipAddress = HttpContext.Request.UserHostAddress;
+            FormsAuthentication.SetAuthCookie(ipAddress, true);
             var url =TempData["ViewNameLogOut"].ToString();
             return Redirect(url);
         }

@@ -23,6 +23,7 @@
             <div class="col-lg-8">
                 <div class="cart-table">
                     <h3>Sepetim</h3>
+                    @*<input type="button" onclick="location.reload()" value="Sepeti Güncelle">*@
                     <div class="cart-table-warp">
                         <table>
                             <thead>
@@ -34,8 +35,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @{ var totalPrice = decimal.Zero;}
                                 @foreach (var item in Model)
                                 {
+                                    totalPrice += item.Price * item.Count;
                                     <tr>
                                         <td class="product-col">
                                             <a href="~/Product/Details/@item.Link"><img src="@item.PhotoLink" alt=""></a>
@@ -49,13 +52,12 @@
 
                                                     <span class="dec qtybtn btndeleteFrombasket" data-id="@item.Id">-</span>
                                                     <input type="text" value="@item.Count">
-
-                                                    <span class="inc qtybtn btnaddTobasket" data-id="@item.Id">+</span>
+                                                    <span class="inc qtybtn btnIncreaseToBasket" data-id="@item.Id">+</span>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="size-col"><h4>M</h4></td>
-                                        <td class="total-col"><h4>@item.Price</h4></td>
+                                        <td class="total-col"><h4>@item.Count x @(item.Price.ToString("n"))₺</h4></td>
                                     </tr>
 
                                 }
@@ -63,7 +65,7 @@
                         </table>
                     </div>
                     <div class="total-cost">
-                        <h6>Toplam <span></span></h6>
+                        <h6>Toplam <span>@totalPrice.ToString("n") ₺</span></h6>
                     </div>
                 </div>
             </div>

@@ -122,6 +122,10 @@
     <Compile Include="Migrations\201903241500254_Product_AddColumn_Viewed.Designer.cs">
       <DependentUpon>201903241500254_Product_AddColumn_Viewed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903281224219_User_Change_LastLoginDateProperty.cs" />
+    <Compile Include="Migrations\201903281224219_User_Change_LastLoginDateProperty.Designer.cs">
+      <DependentUpon>201903281224219_User_Change_LastLoginDateProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderProduct.cs" />
@@ -182,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903241500254_Product_AddColumn_Viewed.resx">
       <DependentUpon>201903241500254_Product_AddColumn_Viewed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903281224219_User_Change_LastLoginDateProperty.resx">
+      <DependentUpon>201903281224219_User_Change_LastLoginDateProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

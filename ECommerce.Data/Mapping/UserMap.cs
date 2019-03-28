@@ -30,8 +30,7 @@ namespace ECommerce.Data.Mapping
                 .IsRequired()
                 .HasMaxLength(250);
 
-            this.Property(t => t.LastLoginDate)
-                .HasMaxLength(250);
+            this.Property(t => t.LastLoginDate);
 
             this.Property(t => t.LastLoginIp)
                 .HasMaxLength(250);

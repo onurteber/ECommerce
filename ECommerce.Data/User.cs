@@ -29,7 +29,7 @@ namespace ECommerce.Data
         public Nullable<int> BillingAddressId { get; set; }
         public bool ApprovedEmail { get; set; }
         public bool Active { get; set; }
-        public string LastLoginDate { get; set; }
+        public DateTime LastLoginDate { get; set; }
         public string LastLoginIp { get; set; }
         public System.DateTime RegisterDate { get; set; }
         public string Role { get; set; }

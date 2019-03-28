@@ -187,33 +187,29 @@ $(window).on('load', function () {
     var proQty = $('.pro-qty');
     //   proQty.prepend('<span class="dec qtybtn btndeletetobasket" id="denemeasd" data-id="@item.Id">-</span>');
     //proQty.append('<span class="inc qtybtn btnaddtobasket" id="denemeasd" data-id="@item.Id">+</span>');
-    proQty.on('click', '.btnaddTobasket', function () {
+
+
+
+    proQty.on('click', '.btnIncreaseToBasket', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
         if ($button.hasClass('inc')) {
             //$('.btnaddtobasket').click(function () {
-            debugger;
             var id = $(this).attr("data-id");
             $.ajax({
                 url: '/ShoppingCart/AddToBasket',
                 type: 'get',
                 data: { productId: id },
                 success: function (result) {
-                    $("#addBasket").modal();
                     var newVal = parseFloat(oldValue) + 1;
                     $button.parent().find('input').val(newVal);
+                    
                 }
             });
             //});
         } 
-        else {
-            // Don't allow decrementing below zero
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
-            } else {
-                newVal = 0;
-            }
-        }
+        
+       
     });
 
     // Delete product from basket
@@ -230,11 +226,12 @@ $(window).on('load', function () {
                 type: 'get',
                 data: { productId: id },
                 success: function (result) {
-                    $("#addBasket").modal();
-                    if (oldValue > 0) {
+                    if (oldValue > 1) {
                         var newVal = parseFloat(oldValue) - 1;
                     } else {
                         newVal = 0;
+                        
+                        $("#deleteBasket").modal();
                     }
                     $button.parent().find('input').val(newVal);
                 }

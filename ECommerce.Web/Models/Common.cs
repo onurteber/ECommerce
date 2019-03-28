@@ -25,6 +25,7 @@ namespace ECommerce.Web.Models
 
     public class FooterModel
     {
+
         public FooterModel()
         {
             SocialMedia = new Dictionary<string, string>();

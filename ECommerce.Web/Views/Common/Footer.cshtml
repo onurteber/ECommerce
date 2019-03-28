@@ -7,7 +7,9 @@
 <section class="footer-section">
     <div class="container">
         <div class="footer-logo text-center">
-            <a href="index.html"><img src="~/Content/img/logo-light.png" /></a>
+            <a href="~/Home/Index" class="site-logo">
+                <img src="@Model.Logo" @(Model.LogoWidth > 0 ? "width=" + Model.LogoWidth + " " : "") @(Model.LogoHeight > 0 ? "height=" + Model.LogoHeight + " " : "")>
+            </a>
 
         </div>
         <div class="row">

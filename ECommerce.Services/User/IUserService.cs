@@ -18,6 +18,7 @@ namespace ECommerce.Services.User
         Data.User GetUserByUserName(string UserName);
         Data.User GetUserByEmail(string Email);
         bool ResetPassword(string Email);
+        Data.User CreateGuestMember(string ipAddress);
         List<Data.User> GetUsers();
     }
 }

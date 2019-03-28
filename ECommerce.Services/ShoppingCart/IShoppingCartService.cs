@@ -14,6 +14,7 @@ namespace ECommerce.Services.ShoppingCart
         void UpdateBasket(IEnumerable<Basket> basket, string email);
         IQueryable<Basket> GetBasket(string email);
         int BasketByProductId(string email, int productId);
+        void DecreaseFromBasket(int productId, string email);
         int GetBasketCount(string email);
     }
 }

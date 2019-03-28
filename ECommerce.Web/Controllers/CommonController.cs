@@ -26,27 +26,26 @@ namespace ECommerce.Web.Controllers
         {
             var model = new HeaderModel();
             string email = HttpContext.User.Identity.Name;
-            if(email != "")
+            if(email == "")
             {
-                model.BaketsCount = _shoppingCartService.GetBasketCount(email);
+                email = HttpContext.Request.UserHostAddress;
             }
-            else
-            {
-                email = "guest";
-                model.BaketsCount = _shoppingCartService.GetBasketCount(email);
-            }
-            
+            model.BaketsCount = _shoppingCartService.GetBasketCount(email);
             model.Logo = _settingService.GetSetting<string>("LogoUrl");
             model.LogoHeight = _settingService.GetSetting<int>("LogoHeight");
             model.LogoWidth = _settingService.GetSetting<int>("LogoWidth");
             return View(model);
         }
-        
+
         public ActionResult Footer()
         {
-            return View();
+            var model = new FooterModel();
+            model.Logo = _settingService.GetSetting<string>("LogoUrl");
+            model.LogoHeight = _settingService.GetSetting<int>("LogoHeight");
+            model.LogoWidth = _settingService.GetSetting<int>("LogoWidth");
+            return View(model);
         }
-        
+
         public ActionResult ModalsPartials()
         {
             return PartialView("ModalsPartial");
