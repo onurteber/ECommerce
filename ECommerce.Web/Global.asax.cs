@@ -1,6 +1,6 @@
-﻿
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
+using ECommerce.Data;
 using ECommerce.Services.Catalog;
 using ECommerce.Services.Communication;
 using ECommerce.Services.ShoppingCart;
@@ -55,6 +55,7 @@ namespace ECommerce.Web
             var builder = new ContainerBuilder();
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
 
+            builder.RegisterType<AppDbContext>().As<AppDbContext>();
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<EmailSenderService>().As<IEmailSenderService>();
             builder.RegisterType<SettingService>().As<ISettingService>();
@@ -63,6 +64,7 @@ namespace ECommerce.Web
             builder.RegisterType<PhotoService>().As<IPhotoService>();
             builder.RegisterType<SlideShowService>().As<ISlideShowService>();
             builder.RegisterType<ShoppingCartService>().As<IShoppingCartService>();
+            builder.RegisterType<UrlService>().As<IUrlService>();
             //builder.RegisterType<RouteService>().As<IRouteService>();
 
             var container = builder.Build();

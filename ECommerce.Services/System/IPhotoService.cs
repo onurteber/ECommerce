@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ECommerce.Services.System
 {
@@ -11,5 +12,6 @@ namespace ECommerce.Services.System
     {
         IQueryable<Photo> GetPhotosByIds(int[] ids);
         Photo GetPhotoById(int id);
+        Photo UploadPicture(HttpPostedFileBase picture, string path);
     }
 }

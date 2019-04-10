@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShoppingCartModel>
+﻿@model ShoppingCartModel
 @using ECommerce.Web.Models
 @{
     ViewBag.Title = "Index";
@@ -10,8 +10,8 @@
         <div class="container">
             <h4></h4>
             <div class="site-pagination">
-                <a href="">Home</a> /
-                <a href="">Your cart</a>
+                <a href="~/Assets/">Home</a> /
+                <a href="~/Assets/">Your cart</a>
             </div>
         </div>
     </div>*@
@@ -36,7 +36,7 @@
                             </thead>
                             <tbody>
                                 @{ var totalPrice = decimal.Zero;}
-                                @foreach (var item in Model)
+                                @foreach (var item in Model.ShoppingModels)
                                 {
                                     totalPrice += item.Price * item.Count;
                                     <tr>
@@ -85,70 +85,39 @@
 <section class="related-product-section">
     <div class="container">
         <div class="section-title text-uppercase">
-            <h2>Continue Shopping</h2>
+            <h2>İLGİNİZİ ÇEKEBİLİR</h2>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-sm-6">
-                <div class="product-item">
-                    <div class="pi-pic">
-                        <div class="tag-new">New</div>
-                        <img src="./img/product/2.jpg" alt="">
-                        <div class="pi-links">
-                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+            @foreach (var item in Model.TopViewedProducts)
+            {
+                <div class="col-lg-3 col-sm-6">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <div class="tag-new">New</div>
+                            <img src="@item.Photos.FirstOrDefault()" alt="">
+                            <div class="pi-links">
+                                <a class="add-card btnaddtobasket" data-id="@item.Id"><i class="flaticon-bag"></i><span>Sepete Ekle</span></a>
+                                <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+                            </div>
+                        </div>
+                        <div class="pi-text">
+                            <h6>
+                                @if (DateTime.Now < item.SpecialPriceFinishDate && DateTime.Now > item.SpecialPriceStartDate && item.SpecialPrice.HasValue)
+                                {
+                                    @(item.SpecialPrice.Value.ToString("n")) <text>₺</text>
+                                }
+                                else
+                                {
+                                    @(item.Price.ToString("n")) <text>₺</text>
+                                }
+                            </h6>
+                            <a href="~/Products/Details/@item.Slug" style="color:#111111">@item.Name</a>
                         </div>
                     </div>
-                    <div class="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Black and White Stripes Dress</p>
-                    </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="product-item">
-                    <div class="pi-pic">
-                        <img src="./img/product/5.jpg" alt="">
-                        <div class="pi-links">
-                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-                        </div>
-                    </div>
-                    <div class="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Flamboyant Pink Top </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="product-item">
-                    <div class="pi-pic">
-                        <img src="./img/product/9.jpg" alt="">
-                        <div class="pi-links">
-                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-                        </div>
-                    </div>
-                    <div class="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Flamboyant Pink Top </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="product-item">
-                    <div class="pi-pic">
-                        <img src="./img/product/1.jpg" alt="">
-                        <div class="pi-links">
-                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-                        </div>
-                    </div>
-                    <div class="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Flamboyant Pink Top </p>
-                    </div>
-                </div>
-            </div>
+            }
+
+
         </div>
     </div>
 </section>

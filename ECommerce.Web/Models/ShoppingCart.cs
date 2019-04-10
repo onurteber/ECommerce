@@ -7,6 +7,12 @@ namespace ECommerce.Web.Models
 {
     public class ShoppingCartModel
     {
+        public IEnumerable<ShoppingModels> ShoppingModels { get; set; }
+        public IEnumerable<ProductModel> TopViewedProducts { get; set; }
+    }
+
+    public class ShoppingModels
+    {
         public int Id { get; set; }
         public int Count { get; set; }
         public string ProductName { get; set; }

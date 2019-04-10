@@ -1694,7 +1694,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
     var selector = this.selector
       + '[data-target="' + target + '"],'
-      + this.selector + '[href="' + target + '"]'
+      + this.selector + '[href="~/Assets/' + target + '"]'
 
     var active = $(selector)
       .parents('li')
